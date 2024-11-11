@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Faculty Blog</title>
+</head>
+<body>
+    <h1>Faculty Blog Posts</h1>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="{% url 'faculty_post_detail' post.slug %}">{{ post.title }}</a>
+            - Published on {{ post.pub_date }}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

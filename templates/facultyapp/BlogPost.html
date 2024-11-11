@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Home - Student Management System</title>
+</head>
+<body>
+    <h1>Welcome to the Faculty Blog</h1>
+
+    <!-- Blog Submission Form -->
+    <h2>Write a New Blog Post</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- List of Blog Posts -->
+    <h2>Faculty Blog Posts</h2>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <p><strong>Published on:</strong> {{ post.pub_date }}</p>
+            <!-- Delete Button -->
+            <form method="POST" action="{% url 'facultyapp:delete_post' post.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Button to go back to faculty homepage -->
+    <a href="{% url 'facultyapp:FacultyHomePage' %}"><button type="button">Return to Faculty Homepage</button></a>
+</body>
+</html>

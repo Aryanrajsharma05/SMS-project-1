@@ -1,0 +1,38 @@
+<!-- facultyapp/post_marks.html -->
+{% extends 'Navbar/FacultyNavbar.html' %}
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Marks</title>
+    <link rel="stylesheet" href="{% static 'facultyapp/post_marks' %}">
+</head>
+<body>
+{% block body %}
+    <div class="container">
+        <h2>Post Student Marks</h2>
+        <form method="POST" action="{% url 'facultyapp:post_marks' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit Marks</button>
+        </form>
+
+        {% if form.errors %}
+            <div class="error">
+                <p>There were errors in the form. Please correct them and submit again.</p>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+</body>
+</html>
